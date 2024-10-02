@@ -24,7 +24,7 @@ include('proses.php');
         <tr>
             <th style="background-color:#00ff00">Peringkat</th>
             <th>Koordinat X</th>
-            <th>Koordinat Y</th>
+            <th>Koordinat Yy</th>
             <th>Akses Jalan</th>
             <th>Harga Tanah</th>
             <th>Kepadatan Penduduk</th>
