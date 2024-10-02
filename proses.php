@@ -33,20 +33,30 @@ function pengumpulan_data() {
 
 function normalisasi_data($data) {
     $min_max = array();
+    
+    // Inisialisasi min_max untuk kolom selain koordinat_x dan koordinat_y
     foreach ($data[0] as $key => $value) {
-        $min_max[$key] = array('min' => PHP_INT_MAX, 'max' => PHP_INT_MIN);
-    }
-
-    foreach ($data as $row) {
-        foreach ($row as $key => $value) {
-            if ($value < $min_max[$key]['min']) $min_max[$key]['min'] = $value;
-            if ($value > $min_max[$key]['max']) $min_max[$key]['max'] = $value;
+        if ($key !== 'koordinat_x' && $key !== 'koordinat_y') {
+            $min_max[$key] = array('min' => PHP_INT_MAX, 'max' => PHP_INT_MIN);
         }
     }
 
+    // Cari nilai minimum dan maksimum untuk kolom selain koordinat_x dan koordinat_y
+    foreach ($data as $row) {
+        foreach ($row as $key => $value) {
+            if ($key !== 'koordinat_x' && $key !== 'koordinat_y') {
+                if ($value < $min_max[$key]['min']) $min_max[$key]['min'] = $value;
+                if ($value > $min_max[$key]['max']) $min_max[$key]['max'] = $value;
+            }
+        }
+    }
+
+    // Lakukan normalisasi untuk kolom selain koordinat_x dan koordinat_y
     foreach ($data as &$row) {
         foreach ($row as $key => &$value) {
-            $value = ($value - $min_max[$key]['min']) / ($min_max[$key]['max'] - $min_max[$key]['min']);
+            if ($key !== 'koordinat_x' && $key !== 'koordinat_y') {
+                $value = ($value - $min_max[$key]['min']) / ($min_max[$key]['max'] - $min_max[$key]['min']);
+            }
         }
     }
 
